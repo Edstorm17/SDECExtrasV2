@@ -1,0 +1,57 @@
+{
+  "manifest_version": 3,
+  "name": "SDEC Extras V2",
+  "description": "Extension pour SDEC Coba",
+  "version": "0.0.0.1",
+
+  "icons": {
+    "16": "images/icon-16.png",
+    "32": "images/icon-32.png",
+    "48": "images/icon-48.png",
+    "128": "images/icon-128.png"
+  },
+  "action": {
+    "default_popup": "pages/hello.html"
+  },
+  "options_ui": {
+    "page": "pages/options.html",
+    "open_in_tab": true
+  },
+  "content_scripts": [
+    {
+      "js": ["scripts/common_content.js"],
+      "css": ["styles/styles.css"],
+      "matches": [
+        "https://sdec.coba.ca/*/*"
+      ]
+    },
+    {
+      "js": ["scripts/login_content.js"],
+      "matches": [
+        "https://sdec.coba.ca/*/login.*"
+      ]
+    },
+    {
+      "js": ["scripts/main_content.js"],
+      "matches": [
+        "https://sdec.coba.ca/*/index.*"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "/images/*",
+        "/styles/*",
+        "/themes/*",
+        "/scripts/*",
+        "/pages/*"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "permissions": [
+    "storage",
+    "clipboardWrite"
+  ]
+}

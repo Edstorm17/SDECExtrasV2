@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Options SDEC Extras</title>
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+<body>
+    <div class="OptionsTab">
+        <button id="appearanceButton" class="TabLinks">Apparence</button>
+        <button id="interfaceButton" class="TabLinks">Interface</button>
+        <button id="qolButton" class="TabLinks">QoL</button>
+        <button id="exportButton" class="TabLinks">Export</button>
+    </div>
+
+    <div id="appearance" class="TabContent">
+        <label>
+            Thème:
+            <select id="theme">
+                <option value="light">Clair (par défaut)</option>
+                <option value="dark">Sombre (discord)</option>
+<!--                <option value="barbers">Barbiers</option>-->
+            </select>
+        </label>
+        <br>
+        <label>
+            Cacher le logo de page d'accueil:
+            <input type="checkbox" id="hideLoginLogo"/>
+        </label>
+        <br>
+        <label>
+            Page de connection plus propre:
+            <input type="checkbox" id="cleanLogin">
+        </label>
+    </div>
+    <div id="interface" class="TabContent">
+        <label>
+            Communiqués plus compacts:
+            <input type="checkbox" id="compactCommuniques">
+        </label>
+        <br>
+        <label>
+            Position du bouton du menu de gauche:
+            <select id="leftMenuButton">
+                <option value="upper">Bandeau supérieur</option>
+                <option value="lower">Bandeau inférieur</option>
+            </select>
+        </label>
+        <br>
+        <label>
+            Cacher les onglets inutiles:
+            <input type="checkbox" id="hideUselessTabs">
+        </label>
+        <br>
+        <label>
+            Activer les jeux:
+            <input type="checkbox" id="games">
+        </label>
+    </div>
+    <div id="qol" class="TabContent">
+        <label>
+            Confirmer la déconnexion:
+            <input type="checkbox" id="confirmDisconnect">
+        </label>
+    </div>
+    <div id="export" class="TabContent">
+        <label>
+            Exporter:
+            <button id="copyExportButton">Copier</button>
+            <br>
+            Importer:
+            <button id="pasteImportButton">Charger</button>
+        </label>
+    </div>
+
+    <div id="status" class="OptionsStatus"></div>
+    <button id="save">Sauvegarder</button>
+
+    <script src="/scripts/options.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+
+.communiquesContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.communiquesContainer > div {
+    display: flex;
+    flex-direction: column;
+}
+
+#logo1, #logo2 {
+    display: none;
+}
+
+.headerLogo {
+    height: 43px;
+}
+
+.rangee > .bouton-plat {
+    margin-top: 10px !important;
+}

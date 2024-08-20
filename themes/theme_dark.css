@@ -1,0 +1,116 @@
+
+body, .main-frm {
+    background-color: #1e1f22;
+    color: #dbdee1;
+}
+
+.ctitre {
+    color: #f2f3f5;
+}
+
+.libelle {
+    color: #949ba4;
+}
+
+input[type="text"], input[type="password"] {
+    background-color: #3f4147 !important;
+    color: #dbdee1 !important;
+    border-radius: 3px;
+    height: 22px;
+    border: none;
+}
+
+.bouton-plat {
+    transition: color 0s;
+    text-decoration: none !important;
+}
+
+.bouton-plat:hover {
+    text-decoration: underline !important;
+}
+
+.bouton-plat.neutre {
+    color: #f2f3f5;
+}
+
+.bouton-plat.neutre:hover {
+    color: #f2f3f5;
+}
+
+.bouton-plat.secondaire {
+    color: #00a8fc;
+}
+
+.bouton-plat.secondaire:hover {
+    color: #00a8fc;
+}
+
+.bouton-plat.important {
+    color: #ED4245;
+}
+
+.bouton-plat.important:hover {
+    color: #ED4245;
+}
+
+.bouton-souleve.primaire {
+    background-color: #da373c;
+    color: #ffffff;
+    transition: background 0.2s;
+}
+
+.bouton-souleve.primaire:hover {
+    background-color: #a12828;
+}
+
+.bouton-souleve.primaire:active {
+    background-color: #8f2022;
+}
+
+.textfield > .field+span {
+    color: #dbdee1;
+}
+
+.textfield > .field[data-float="true"] + span,
+.textfield > .field:focus + span {
+    color: #dbdee1;
+}
+
+.textfield > .field:required + span:after {
+    color: #ED4245;
+}
+
+.textfield > span + hr,
+.textfield > span + hr + hr {
+    border: none;
+}
+
+.bouton-plat-icone i {
+    transition: none;
+}
+
+.bouton-plat-icone:hover > .material-icons.neutre {
+    color: #a12828;
+}
+
+.material-icons.neutre {
+    color: #da373c;
+}
+
+.material-icons.secondaire {
+    color: #6d6f78;
+}
+
+.login-sep {
+    border-color: #3f4147;
+}
+
+.bandeau-page-haut {
+    background-color: #232428;
+    border: none;
+}
+
+.bandeau-page-bas {
+    background-color: #313338;
+    border: none;
+}
