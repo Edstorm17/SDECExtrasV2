@@ -28,7 +28,8 @@
     {
       "js": ["scripts/login_content.js"],
       "matches": [
-        "https://sdec.coba.ca/*/login.*"
+        "https://sdec.coba.ca/*/login.*",
+        "https://sdec.coba.ca/*/logout.*"
       ]
     },
     {
