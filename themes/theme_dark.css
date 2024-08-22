@@ -9,7 +9,11 @@ body, .main-frm {
 }
 
 .libelle {
-    color: #949ba4;
+    color: #dbdee1;
+}
+
+.libelle-entete {
+    color: #f2f3f5;
 }
 
 .para {
@@ -119,8 +123,15 @@ input[type="text"], input[type="password"] {
     border: none;
 }
 
-.plaquette {
+.plaquette,
+.plaquette > .titre,
+.plaquette > .titre.secondaire,
+.plaquette > .titre.primaire {
     background-color: #313338;
+}
+
+.plaquette > .titre {
+    border-bottom: 1px solid #3f4147;
 }
 
 .left-sidebar {
@@ -133,4 +144,16 @@ input[type="text"], input[type="password"] {
 
 .treeview__icone {
     color: #949ba4;
+}
+
+.combo2 > select[disabled] {
+    color: #f2f3f5;
+}
+
+.combo2 > select[disabled] ~ label {
+    color: #dbdee1;
+}
+
+.combo2 > select[disabled] ~ .combo2__souligne {
+    border-color: #3f4147;
 }
