@@ -16,7 +16,7 @@
     <div id="appearance" class="TabContent">
         <label>
             Thème:
-            <select id="theme">
+            <select id="theme" class="option">
                 <option value="light">Clair (par défaut)</option>
                 <option value="dark">Sombre (discord)</option>
 <!--                <option value="barbers">Barbiers</option>-->
@@ -24,24 +24,29 @@
         </label>
         <br>
         <label>
-            Cacher le logo de page d'accueil:
-            <input type="checkbox" id="hideLoginLogo"/>
+            Cacher le logo de page de connection:
+            <input type="checkbox" id="hideLoginLogo" class="option">
         </label>
         <br>
         <label>
             Page de connection plus propre:
-            <input type="checkbox" id="cleanLogin">
+            <input type="checkbox" id="cleanLogin" class="option">
+        </label>
+        <br>
+        <label>
+            Cacher la photo d'usager:
+            <input type="checkbox" id="hideImage" class="option">
         </label>
     </div>
     <div id="interface" class="TabContent">
         <label>
             Communiqués plus compacts:
-            <input type="checkbox" id="compactCommuniques">
+            <input type="checkbox" id="compactCommuniques" class="option">
         </label>
         <br>
         <label>
             Position du bouton du menu de gauche:
-            <select id="leftMenuButton">
+            <select id="leftMenuButton" class="option">
                 <option value="upper">Bandeau supérieur</option>
                 <option value="lower">Bandeau inférieur</option>
             </select>
@@ -49,18 +54,18 @@
         <br>
         <label>
             Cacher les onglets inutiles:
-            <input type="checkbox" id="hideUselessTabs">
+            <input type="checkbox" id="hideUselessTabs" class="option">
         </label>
         <br>
         <label>
             Activer les jeux:
-            <input type="checkbox" id="games">
+            <input type="checkbox" id="games" class="option">
         </label>
     </div>
     <div id="qol" class="TabContent">
         <label>
             Confirmer la déconnexion:
-            <input type="checkbox" id="confirmDisconnect">
+            <input type="checkbox" id="confirmDisconnect" class="option">
         </label>
     </div>
     <div id="export" class="TabContent">

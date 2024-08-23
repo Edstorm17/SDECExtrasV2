@@ -12,6 +12,12 @@ chrome.storage.sync.get(
 
 function init() {
 
+    // Inject script
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = chrome.runtime.getURL("scripts/injected.js");
+    document.head.appendChild(script);
+
     loadTheme(theme);
 }
 

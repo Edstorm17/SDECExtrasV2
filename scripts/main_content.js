@@ -1,14 +1,41 @@
+const optionsJSON = {
+    "n": "lnkMenu",
+    "l": "Options SDEC Extras",
+    "p": encodeURIComponent(JSON.stringify({
+        "action": 7, // Custom, see /scripts/injected.js
+        "url": chrome.runtime.getURL("pages/options.html")
+    })),
+    "i": ""
+}
 
 chrome.storage.sync.get(
-    { confirmDisconnect: true, leftMenuButton: 'lower' },
+    { theme: 'light', confirmDisconnect: true, leftMenuButton: 'lower', hideImage: false },
     (items) => {
-        initMain(items.confirmDisconnect, items.leftMenuButton);
+        initMain(items.theme, items.confirmDisconnect, items.leftMenuButton, items.hideImage);
     }
 );
 
-function initMain(confirmDisconnect, leftMenuButton) {
+function initMain(theme, confirmDisconnect, leftMenuButton, hideImage) {
 
-    //Replace the header logo with custom one
+    // Add options button to options-link popup
+    const optionsAnchor = document.querySelector('.lien-avec-options');
+    if (optionsAnchor) {
+        let data = optionsAnchor.getAttribute('data-option');
+        const json = JSON.parse(decodeURIComponent(data));
+        const arr = json["options"];
+        arr.unshift(optionsJSON);
+
+        // Also confirm disconnect
+        if (!confirmDisconnect) {
+            arr[arr.length - 1].p = JSON.parse(decodeURIComponent(JSON.parse(decodeURIComponent(arr[arr.length - 1].p)).config)).boutons[0].action;
+        }
+
+        json["options"] = arr;
+        data = encodeURIComponent(JSON.stringify(json));
+        optionsAnchor.setAttribute('data-option', data);
+    }
+
+    // Replace the header logo with custom one
     const headerLogo2 = document.getElementById("logo2");
     if (headerLogo2) {
         const newLogo = document.createElement("img");
@@ -28,9 +55,19 @@ function initMain(confirmDisconnect, leftMenuButton) {
         }
     }
 
+    // Left menu button position
     if (leftMenuButton === 'upper') {
         const lmButton = document.getElementById('lnkMenuGauche');
         document.querySelector(".bandeau-page-haut").insertAdjacentElement("afterbegin", lmButton);
+    }
+
+    // Hide user image
+    if (hideImage) {
+        const img = document.getElementById('image-user');
+        if (img) {
+            img.style.display = "none";
+            document.querySelector('#image-user ~ br')?.remove();
+        }
     }
 
 }

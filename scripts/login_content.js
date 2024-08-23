@@ -12,12 +12,12 @@ function initLogin(theme, hideLoginLogo, cleanLogin, compactCommuniques) {
     const logo = document.querySelector(".login-logoLogin");
     if (logo) {
         logo.src = chrome.runtime.getURL('images/login_logo_' + theme + '.png');
-    }
 
-    document.querySelector(".login-logoEntete").src = chrome.runtime.getURL('images/header_logo_' + theme + '.png');
+        document.querySelector(".login-logoEntete").src = chrome.runtime.getURL('images/header_logo_' + theme + '.png');
 
-    if (hideLoginLogo) {
-        logo.style.display = "none";
+        if (hideLoginLogo) {
+            logo.style.display = "none";
+        }
     }
 
     // Cleanup login page
