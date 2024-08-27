@@ -16,6 +16,9 @@ function init() {
     const script = document.createElement("script");
     script.type = "text/javascript";
     script.src = chrome.runtime.getURL("scripts/injected.js");
+    script.onload = function () {
+        document.dispatchEvent(new CustomEvent('SDECInjected'));
+    }
     document.head.appendChild(script);
 
     loadTheme(theme);

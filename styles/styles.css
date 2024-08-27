@@ -24,3 +24,8 @@
 .carte-menu {
     min-height: auto !important;
 }
+
+.info {
+    font-size: 10px;
+    font-style: italic;
+}

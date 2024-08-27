@@ -9,7 +9,13 @@ const defaultJSON = {
     hideUselessTabs: false,
     games: false,
     confirmDisconnect: true,
+    autoLogin: false
 }
+
+const allJSON = defaultJSON;
+allJSON["loginUser"] = '';
+allJSON["loginPassword"] = '';
+
 
 let link = document.createElement("link");
 link.href = chrome.runtime.getURL("/styles.css");
@@ -22,7 +28,7 @@ const status = document.getElementById("status");
 
 const saveOptions = () => {
     const options = document.querySelectorAll(".option");
-    const json = defaultJSON;
+    const json = allJSON;
 
     options.forEach(option => {
         json[option.id] = (option.nodeName.toLowerCase() === "input" && option.type === "checkbox") ? option.checked : option.value;
@@ -91,7 +97,6 @@ function pasteImport() {
         try {
             json = JSON.parse(atob(text));
         } catch (err) {
-            console.log(err);
             status.textContent = 'Le contenu du presse-papiers est invalide.';
             setTimeout(() => status.textContent = '', 3000);
             return false;

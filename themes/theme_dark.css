@@ -180,15 +180,26 @@ input[type="text"], input[type="password"] {
 
 .grid3__row > th {
     background-color: #282a2e;
-    border-radius: 3px 3px 0 0;
+}
+
+.grid3__row > th:first-child {
+    border-radius: 3px 0 0 0;
+}
+
+.grid3__row > th:nth-last-child(2) {
+    border-radius: 0 3px 0 0;
+}
+
+.grid3__row:last-child > td:nth-last-child(2) {
+    border-radius: 0 0 3px 0;
+}
+
+.grid3__row:last-child > td:first-child {
+    border-radius: 0 0 0 3px;
 }
 
 .grid3__row:nth-child(2n + 1) > td,
 .grid3__row > td {
     background-color: #282a2e;
     border-top: 1px solid #3f4147;
-}
-
-.grid3__row:last-child > td {
-    border-radius: 0 0 3px 3px;
 }

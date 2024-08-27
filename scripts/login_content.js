@@ -1,33 +1,49 @@
 
-chrome.storage.sync.get(
-    { theme: 'light', hideLoginLogo: false, cleanLogin: false, compactCommuniques: false },
-    (items) => {
-        initLogin(items.theme, items.hideLoginLogo, items.cleanLogin, items.compactCommuniques);
-    }
+chrome.storage.sync.get({
+        theme: 'light',
+        hideLoginLogo: false,
+        cleanLogin: false,
+        compactCommuniques: false,
+        autoLogin: false,
+        loginUser: '',
+        loginPassword: ''
+    },
+    initLogin
 );
 
-function initLogin(theme, hideLoginLogo, cleanLogin, compactCommuniques) {
+function initLogin(items) {
+
+    const logo = document.querySelector(".login-logoLogin");
+
+    // Call auto login
+    if (logo && items.autoLogin) {
+        document.addEventListener('SDECInjected', () => document.dispatchEvent(new CustomEvent('SDECLogin', {
+            detail: {
+                user: items.loginUser,
+                password: items.loginPassword
+            }
+        })));
+    }
 
     // Login logo
-    const logo = document.querySelector(".login-logoLogin");
     if (logo) {
-        logo.src = chrome.runtime.getURL('images/login_logo_' + theme + '.png');
+        logo.src = chrome.runtime.getURL('images/login_logo_' + items.theme + '.png');
 
-        document.querySelector(".login-logoEntete").src = chrome.runtime.getURL('images/header_logo_' + theme + '.png');
+        document.querySelector(".login-logoEntete").src = chrome.runtime.getURL('images/header_logo_' + items.theme + '.png');
 
-        if (hideLoginLogo) {
+        if (items.hideLoginLogo) {
             logo.style.display = "none";
         }
     }
 
     // Cleanup login page
-    if (cleanLogin) {
+    if (items.cleanLogin) {
         const loginLeft = document.querySelector(".login-gauche");
         loginLeft.style.display = "none";
     }
 
     // Compact communiques
-    if (compactCommuniques) {
+    if (items.compactCommuniques) {
 
         // First contents
         const firstSep = document.querySelector(".pagecoba > .rangee:has(> div > .login-sep)");
