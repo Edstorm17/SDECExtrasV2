@@ -8,14 +8,18 @@ const optionsJSON = {
     "i": ""
 }
 
+const COURRIELS_STR = "COURRIELS"
+
 chrome.storage.sync.get(
-    { theme: 'light', confirmDisconnect: true, leftMenuButton: 'lower', hideImage: false },
+    { theme: 'light', confirmDisconnect: true, leftMenuButton: 'lower', hideImage: false, colorUnreadEmails: false, unreadEmailColor: '#ff0000' },
     (items) => {
-        initMain(items.theme, items.confirmDisconnect, items.leftMenuButton, items.hideImage);
+        initMain(items.theme, items.confirmDisconnect, items.leftMenuButton, items.hideImage, items.colorUnreadEmails, items.unreadEmailColor);
     }
 );
 
-function initMain(theme, confirmDisconnect, leftMenuButton, hideImage) {
+function initMain(theme, confirmDisconnect, leftMenuButton, hideImage, colorUnreadEmails, unreadEmailColor) {
+
+    document.addEventListener('SDECDocumentLoad', () => onPageLoad(colorUnreadEmails, unreadEmailColor));
 
     // Add options button to options-link popup
     const optionsAnchor = document.querySelector('.lien-avec-options');
@@ -70,4 +74,20 @@ function initMain(theme, confirmDisconnect, leftMenuButton, hideImage) {
         }
     }
 
+}
+
+function onPageLoad(colorUnreadEmails, unreadEmailColor) {
+    const title = document.getElementById("bandeau-titre-service");
+
+    // Color unread emails
+    if (title && title.innerText === COURRIELS_STR && colorUnreadEmails) {
+        const emails = document.querySelectorAll(".grid3__row");
+        for (let i = 0; i < emails.length; i++) {
+            const emailRow = emails[i];
+            const checkContainer = emailRow.querySelector(".chkSelection");
+            if (!checkContainer) {
+                emailRow.firstElementChild.style.backgroundColor = unreadEmailColor;
+            }
+        }
+    }
 }

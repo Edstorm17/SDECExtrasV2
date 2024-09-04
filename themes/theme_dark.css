@@ -180,6 +180,7 @@ input[type="text"], input[type="password"] {
 
 .grid3__row > th {
     background-color: #282a2e;
+    color: #5865F2;
 }
 
 .grid3__row > th:first-child {
@@ -202,4 +203,9 @@ input[type="text"], input[type="password"] {
 .grid3__row > td {
     background-color: #282a2e;
     border-top: 1px solid #3f4147;
+}
+
+.grid__expander > td > div[data-bordure] {
+    border-color: #3f4147;
+    transition: border 0s initial;
 }

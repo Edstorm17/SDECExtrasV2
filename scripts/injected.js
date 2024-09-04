@@ -13,6 +13,16 @@ if (executerAction) {
     }
 }
 
+// Override document load function
+if (onDocumentLoad) {
+    const onDocumentLoadOriginal = onDocumentLoad;
+    onDocumentLoad = function () {
+        onDocumentLoadOriginal();
+        document.dispatchEvent(new CustomEvent('SDECDocumentLoad'));
+    }
+}
+
+
 // Auto login
 document.addEventListener('SDECLogin', function(e) {
     const page = document.querySelector("div.pagecoba");

@@ -8,6 +8,8 @@ const defaultJSON = {
     leftMenuButton: 'lower',
     hideUselessTabs: false,
     games: false,
+    colorUnreadEmails: false,
+    unreadEmailColor: '#ff0000',
     confirmDisconnect: true,
     autoLogin: false
 }
