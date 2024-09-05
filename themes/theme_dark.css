@@ -209,3 +209,12 @@ input[type="text"], input[type="password"] {
     border-color: #3f4147;
     transition: border 0s initial;
 }
+
+.contenant {
+    border: none;
+    background-color: #313338;
+}
+
+.onglets {
+    background-color: #282a2e;
+}
