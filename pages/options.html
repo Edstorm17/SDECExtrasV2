@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Options SDEC Extras</title>
+    <title>Paramètres SDEC Extras</title>
     <link rel="stylesheet" href="/styles/styles.css">
 </head>
 <body>
@@ -37,6 +37,11 @@
             Cacher la photo d'usager:
             <input type="checkbox" id="hideImage" class="option">
         </label>
+        <br>
+        <label>
+            Cacher les icônes de lettre de courriels:
+            <input type="checkbox" id="hideEmailIcons" class="option">
+        </label>
     </div>
     <div id="interface" class="TabContent">
         <label>
@@ -53,8 +58,48 @@
         </label>
         <br>
         <label>
+            Cacher le widget de bienvenue:
+            <input type="checkbox" id="hideWelcomeWidget" class="option">
+        </label>
+        <br>
+        <label>
+            Cacher le widget d'information générale:
+            <input type="checkbox" id="hideGeneralInfoWidget" class="option">
+        </label>
+        <br>
+        <label>
             Cacher les onglets inutiles:
             <input type="checkbox" id="hideUselessTabs" class="option">
+        </label>
+        <br>
+        <label>
+            Onglets à cacher pour l'option précédente:
+            <br>
+            <select id="uselessTabsToHide" class="option" multiple size="5">
+                <optgroup label="Mon dossier">
+                    <option value="ACCUEIL">Accueil</option>
+                    <option value="MON HORAIRE">Mon horaire</option>
+                    <option value="RÉSULTATS">Résultats</option>
+                    <option value="ABSENCES">Absences</option>
+                    <option value="BULLETIN">Bulletin</option>
+                    <option value="EMPRUNTS BIBLIOTHÈQUE">Emprunts bibliothèque</option>
+                    <option value="DEVOIRS">Devoirs</option>
+                    <option value="COURRIELS">Courriels</option>
+                    <option value="DOCUMENTS">Documents</option>
+                    <option value="NOTES PERSONNELLES">Notes personnelles</option>
+                    <option value="AGENDA">Agenda</option>
+                    <option value="DOCUMENTS OFFICIELS">Documents officiels</option>
+                    <option value="RÉSULTATS DES ÉPREUVES MEQ">Résultats des épreuves MEQ</option>
+                    <option value="SUIVI DE L'ÉLÈVE">Suivi de l'élève</option>
+                    <option value="BIBLIUS">Biblius</option>
+                </optgroup>
+                <optgroup label="Mon école">
+                    <option value="CALENDRIER">Calendrier</option>
+                    <option value="PERSONNEL">Personnel</option>
+                    <option value="BIBLIOTHÈQUE">Bibliothèque</option>
+                    <option value="DOCUMENTS PUBLICS">Documents publics</option>
+                </optgroup>
+            </select>
         </label>
         <br>
         <label>

@@ -9,7 +9,7 @@
     flex-direction: column;
 }
 
-#logo1, #logo2 {
+#logo1, #logo2, #logo_1, #logo_2 {
     display: none;
 }
 
@@ -28,4 +28,8 @@
 .info {
     font-size: 10px;
     font-style: italic;
+}
+
+.optionsButton {
+    height: 40px;
 }

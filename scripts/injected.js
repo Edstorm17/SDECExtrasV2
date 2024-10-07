@@ -1,5 +1,5 @@
 
-// Override action execution
+// Override action execution function
 if (executerAction) {
     const executerActionOriginal = executerAction;
     executerAction = function(n, t, i) {
@@ -21,6 +21,40 @@ if (onDocumentLoad) {
         document.dispatchEvent(new CustomEvent('SDECDocumentLoad'));
     }
 }
+
+// Override left menu toggle function
+/*
+if (toggleMenuGauche) {
+    const toggleMenuGaucheOriginal = toggleMenuGauche;
+    toggleMenuGauche = function () {
+        const menu = document.getElementById("menugauche"),
+            shadow = document.getElementById("ombre");
+
+        if (menu.classList.contains("left-sidebar--cache")) {
+            if (menu.classList.contains("left-sidebar--float")) {
+                shadow.style.display = "block";
+                setTimeout(() => {
+                    shadow.style.opacity = "0.5";
+                }, 0);
+            }
+            menu.classList.remove("left-sidebar--cache");
+            ajusterHauteurMenuGauche();
+        } else {
+            if (menu.classList.contains("left-sidebar--float")) {
+                shadow.style.opacity = "0";
+                shadow.addEventListener(transitionEndEventName(), onEndOmbre, false);
+                menu.style.top = "0px";
+            } else {
+                menu.style.top = "85px"
+                ajusterHauteurMenuGauche();
+                menu.classList.add("left-sidebar--cache");
+                menu.classList.remove("left-sidebar--float");
+            }
+        }
+        dispatchResize();
+    }
+}
+*/
 
 
 // Auto login

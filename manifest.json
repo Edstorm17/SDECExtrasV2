@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "SDEC Extras V2",
   "description": "Extension pour SDEC Coba",
-  "version": "0.0.0.1",
+  "version": "2.0.0",
 
   "icons": {
     "16": "images/icon-16.png",

@@ -4,9 +4,18 @@ const defaultJSON = {
     hideLoginLogo: false,
     cleanLogin: false,
     hideImage: false,
+    hideEmailIcons: false,
     compactCommuniques: false,
     leftMenuButton: 'lower',
+    hideWelcomeWidget: false,
+    hideGeneralInfoWidget: false,
     hideUselessTabs: false,
+    uselessTabsToHide: [
+        "DOCUMENTS",
+        "NOTES PERSONNELLES",
+        "DOCUMENTS OFFICIELS",
+        "DOCUMENTS PUBLICS"
+    ],
     games: false,
     colorUnreadEmails: false,
     unreadEmailColor: '#ff0000',
@@ -14,10 +23,9 @@ const defaultJSON = {
     autoLogin: false
 }
 
-const allJSON = defaultJSON;
+const allJSON = JSON.parse(JSON.stringify(defaultJSON));
 allJSON["loginUser"] = '';
 allJSON["loginPassword"] = '';
-
 
 let link = document.createElement("link");
 link.href = chrome.runtime.getURL("/styles.css");
@@ -33,7 +41,9 @@ const saveOptions = () => {
     const json = allJSON;
 
     options.forEach(option => {
-        json[option.id] = (option.nodeName.toLowerCase() === "input" && option.type === "checkbox") ? option.checked : option.value;
+        json[option.id] = (option.nodeName.toLowerCase() === "input" && option.type === "checkbox") ? option.checked :
+            (option.nodeName.toLowerCase() === "select" && option.hasAttribute("multiple")) ? Array.from(option.options).filter(o => o.selected).map(o => o.value) :
+            option.value;
     });
     console.log(json);
 
@@ -58,6 +68,14 @@ function loadOptions(items) {
         const value = items[key];
         if (typeof value === "boolean") {
             document.getElementById(key).checked = value;
+        } else if (Array.isArray(value)) {
+            const element = document.getElementById(key);
+            const opts = element.options;
+
+            for (let i = 0; i < opts.length; i++) {
+                opts[i].selected = value.includes(opts[i].value)
+            }
+            element.options = opts;
         } else {
             document.getElementById(key).value = value;
         }

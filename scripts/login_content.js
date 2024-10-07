@@ -36,6 +36,19 @@ function initLogin(items) {
         }
     }
 
+    // Options button
+    const forgotPasswordBtn = document.querySelector(".bouton-plat.neutre");
+    if (forgotPasswordBtn) {
+        const optionsBtn = document.createElement("input");
+        optionsBtn.type = "image";
+        optionsBtn.classList.add("optionsButton");
+        optionsBtn.src = chrome.runtime.getURL('images/options_' + items.theme + '.svg');
+        optionsBtn.addEventListener("click", () => {
+            window.open(chrome.runtime.getURL('pages/options.html')).focus();
+        });
+        forgotPasswordBtn.insertAdjacentElement("beforebegin", optionsBtn);
+    }
+
     // Cleanup login page
     if (items.cleanLogin) {
         const loginLeft = document.querySelector(".login-gauche");

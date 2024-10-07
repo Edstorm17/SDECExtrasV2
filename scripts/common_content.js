@@ -20,6 +20,10 @@ function init() {
         document.dispatchEvent(new CustomEvent('SDECInjected'));
     }
     document.head.appendChild(script);
+    const materialSymbolsOutlined = document.createElement("link");
+    materialSymbolsOutlined.rel = "stylesheet";
+    materialSymbolsOutlined.href = "https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined";
+    document.head.appendChild(materialSymbolsOutlined);
 
     loadTheme(theme);
 }
