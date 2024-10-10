@@ -340,10 +340,18 @@ input[type="text"], input[type="password"] {
     color: #949ba4;
 }
 
+.horaire__renc[data-today] {
+    background-color: #3f4147;
+}
+
 .horaire__case {
     background-color: #282a2e;
     border: 1px solid #3f4147;
     border-top: none;
+}
+
+.horaire__case[data-today] {
+    background-color: #3f4147;
 }
 
 .horaire__row__l td:first-child, .horaire__row__l > td:last-child {
