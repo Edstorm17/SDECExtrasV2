@@ -10,8 +10,9 @@ const optionsJSON = {
     "i": ""
 }
 
-const EMAILS_STR = "COURRIELS"
 const HOME_STR = "ACCUEIL";
+const RESULTS_STR = "RÉSULTATS";
+const EMAILS_STR = "COURRIELS"
 
 chrome.storage.sync.get(
     {
@@ -26,14 +27,16 @@ chrome.storage.sync.get(
         uselessTabsToHide: [],
         games: false,
         colorUnreadEmails: false,
-        unreadEmailColor: '#ff0000'
+        unreadEmailColor: '#ff0000',
+        editResults: false
     },
     initMain
 );
 
 function initMain(options) {
 
-    document.addEventListener('SDECDocumentLoad', () => onPageLoad(options));
+    document.addEventListener('SCXDocumentLoad', () => onPageLoad(options));
+    document.addEventListener('SCXEditResults', editResults)
 
     // Add options button to options-link popup
     const optionsAnchor = document.querySelector('.lien-avec-options');
@@ -66,9 +69,7 @@ function initMain(options) {
         if (options.games) {
             const flappyButton = optionsButton.cloneNode(true);
             const flappyIcon = flappyButton.querySelector("i");
-            flappyIcon.classList.remove("material-icons");
-            flappyIcon.classList.add("material-symbols-outlined");
-            flappyIcon.innerHTML = "raven";
+            flappyIcon.innerHTML = "flutter_dash";
             const flappyAnchor = flappyButton.querySelector("a");
             flappyAnchor.innerHTML = "Flappy"
             flappyAnchor.removeAttribute("data-togglemenu");
@@ -195,7 +196,32 @@ function onPageLoad(options) {
             });
         }
 
+    } else if (title === RESULTS_STR) {
+
+        // Add option to edit results
+        if (options.editResults) {
+            const anchor = document.querySelector(".contenant .lien-avec-options");
+            if (anchor) {
+                let data = JSON.parse(decodeURIComponent(anchor.getAttribute("data-option")));
+                data["options"].push({
+                    "n": "editBtn",
+                    "l": "Modifier",
+                    "p": encodeURIComponent(JSON.stringify({
+                        "action": 12,
+                        "id": "SDX_EditResults",
+                        "params": []
+                    })),
+                    "i": "edit"
+                });
+                anchor.setAttribute("data-option", encodeURIComponent(JSON.stringify(data)));
+            }
+        }
+
     }
+}
+
+function editResults() {
+    console.log("editing")
 }
 
 function initFlappy(event) {

@@ -20,12 +20,17 @@ const defaultJSON = {
     colorUnreadEmails: false,
     unreadEmailColor: '#ff0000',
     confirmDisconnect: true,
+    editResults: false,
     autoLogin: false
 }
 
+const nonSavedJSON = {
+    loginUser: '',
+    loginPassword: ''
+}
+
 const allJSON = JSON.parse(JSON.stringify(defaultJSON));
-allJSON["loginUser"] = '';
-allJSON["loginPassword"] = '';
+allJSON["nonSaved"] = nonSavedJSON;
 
 let link = document.createElement("link");
 link.href = chrome.runtime.getURL("/styles.css");
@@ -38,12 +43,17 @@ const status = document.getElementById("status");
 
 const saveOptions = () => {
     const options = document.querySelectorAll(".option");
-    const json = allJSON;
+    const json = nonSavedJSON;
 
     options.forEach(option => {
-        json[option.id] = (option.nodeName.toLowerCase() === "input" && option.type === "checkbox") ? option.checked :
+        const value = (option.nodeName.toLowerCase() === "input" && option.type === "checkbox") ? option.checked :
             (option.nodeName.toLowerCase() === "select" && option.hasAttribute("multiple")) ? Array.from(option.options).filter(o => o.selected).map(o => o.value) :
             option.value;
+        if (option.classList.contains('nonSaved')) {
+            json["nonSaved"][option.id] = value;
+        } else {
+            json[option.id] = value;
+        }
     });
     console.log(json);
 
@@ -58,18 +68,20 @@ const saveOptions = () => {
 
 const restoreOptions = () => {
     chrome.storage.sync.get(
-        defaultJSON,
+        allJSON,
         loadOptions
     );
 };
 
 function loadOptions(items) {
-    for (const key in items) {
+    for (let key in items) {
         const value = items[key];
+        if (value.constructor === Object) loadOptions(value);
+        const element = document.getElementById(key);
+        if (!element) continue;
         if (typeof value === "boolean") {
-            document.getElementById(key).checked = value;
+            element.checked = value;
         } else if (Array.isArray(value)) {
-            const element = document.getElementById(key);
             const opts = element.options;
 
             for (let i = 0; i < opts.length; i++) {
@@ -77,7 +89,7 @@ function loadOptions(items) {
             }
             element.options = opts;
         } else {
-            document.getElementById(key).value = value;
+            element.value = value;
         }
     }
 }

@@ -5,8 +5,10 @@ chrome.storage.sync.get({
         cleanLogin: false,
         compactCommuniques: false,
         autoLogin: false,
-        loginUser: '',
-        loginPassword: ''
+        nonSaved: {
+            loginUser: '',
+            loginPassword: ''
+        }
     },
     initLogin
 );
@@ -17,10 +19,10 @@ function initLogin(items) {
 
     // Call auto login
     if (logo && items.autoLogin) {
-        document.addEventListener('SDECInjected', () => document.dispatchEvent(new CustomEvent('SDECLogin', {
+        document.addEventListener('SCXInjected', () => document.dispatchEvent(new CustomEvent('SCXLogin', {
             detail: {
-                user: items.loginUser,
-                password: items.loginPassword
+                user: items.nonSaved.loginUser,
+                password: items.nonSaved.loginPassword
             }
         })));
     }

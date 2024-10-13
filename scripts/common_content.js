@@ -17,13 +17,13 @@ function init() {
     script.type = "text/javascript";
     script.src = chrome.runtime.getURL("scripts/injected.js");
     script.onload = function () {
-        document.dispatchEvent(new CustomEvent('SDECInjected'));
+        document.dispatchEvent(new CustomEvent('SCXInjected'));
     }
     document.head.appendChild(script);
-    const materialSymbolsOutlined = document.createElement("link");
-    materialSymbolsOutlined.rel = "stylesheet";
-    materialSymbolsOutlined.href = "https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined";
-    document.head.appendChild(materialSymbolsOutlined);
+    // const materialSymbolsOutlined = document.createElement("link");
+    // materialSymbolsOutlined.rel = "stylesheet";
+    // materialSymbolsOutlined.href = "https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined";
+    // document.head.appendChild(materialSymbolsOutlined);
 
     loadTheme(theme);
 }

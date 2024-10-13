@@ -18,7 +18,7 @@ if (onDocumentLoad) {
     const onDocumentLoadOriginal = onDocumentLoad;
     onDocumentLoad = function () {
         onDocumentLoadOriginal();
-        document.dispatchEvent(new CustomEvent('SDECDocumentLoad'));
+        document.dispatchEvent(new CustomEvent('SCXDocumentLoad'));
     }
 }
 
@@ -58,7 +58,7 @@ if (toggleMenuGauche) {
 
 
 // Auto login
-document.addEventListener('SDECLogin', function(e) {
+document.addEventListener('SCXLogin', function(e) {
     const page = document.querySelector("div.pagecoba");
     const button = document.getElementById(page.id + '_btnConnecter');
     const url = JSON.parse(decodeURIComponent(button.getAttribute('data-action')))["param"];
@@ -83,3 +83,10 @@ document.addEventListener('SDECLogin', function(e) {
         onDocumentLoad()
     });
 });
+
+// Results Editing
+if (CobaJS) {
+    CobaJS.Register("SDX_EditResults", function () {
+        document.dispatchEvent(new CustomEvent('SCXEditResults'));
+    });
+}

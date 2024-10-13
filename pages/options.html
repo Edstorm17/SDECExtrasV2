@@ -121,14 +121,22 @@
         </label>
         <br>
         <label>
+            Activer la modification de résultats:
+            <input type="checkbox" id="editResults" class="option">
+            <span class="info">
+                &emsp;Cela n'affecte les résultats que frontalement.
+            </span>
+        </label>
+        <br>
+        <label>
             Connection automatique:
             <input type="checkbox" id="autoLogin" class="option">
             <br>
             &emsp;Code usager à utiliser pour la connection automatique:
-            <input type="text" id="loginUser" class="option">
+            <input type="text" id="loginUser" class="option nonSaved">
             <br>
             &emsp;Mot de passe à utiliser pour la connection automatique:
-            <input type="password" id="loginPassword" class="option">
+            <input type="password" id="loginPassword" class="option nonSaved">
             <br>
             <span class="info">
                 &emsp;Toutes les informations sont stockées localement.
