@@ -1,5 +1,5 @@
 
-chrome.storage.sync.get({
+browser.storage.sync.get({
         theme: 'light',
         hideLoginLogo: false,
         cleanLogin: false,
@@ -13,8 +13,11 @@ chrome.storage.sync.get({
     initLogin
 );
 
+let loginInitiated = false;
 function initLogin(items) {
-
+    if (loginInitiated) return;
+    loginInitiated = true;
+    
     const logo = document.querySelector(".login-logoLogin");
 
     // Call auto login
@@ -29,9 +32,9 @@ function initLogin(items) {
 
     // Login logo
     if (logo) {
-        logo.src = chrome.runtime.getURL('images/login_logo_' + items.theme + '.png');
+        logo.src = browser.runtime.getURL('images/login_logo_' + items.theme + '.png');
 
-        document.querySelector(".login-logoEntete").src = chrome.runtime.getURL('images/header_logo_' + items.theme + '.png');
+        document.querySelector(".login-logoEntete").src = browser.runtime.getURL('images/header_logo_' + items.theme + '.png');
 
         if (items.hideLoginLogo) {
             logo.style.display = "none";
@@ -44,9 +47,9 @@ function initLogin(items) {
         const optionsBtn = document.createElement("input");
         optionsBtn.type = "image";
         optionsBtn.classList.add("optionsButton");
-        optionsBtn.src = chrome.runtime.getURL('images/options_' + items.theme + '.svg');
-        optionsBtn.addEventListener("click", () => {
-            window.open(chrome.runtime.getURL('pages/options.html')).focus();
+        optionsBtn.src = browser.runtime.getURL('images/options_' + items.theme + '.svg');
+        optionsBtn.addEventListener('click', () => {
+            window.open(browser.runtime.getURL('pages/options.html')).focus();
         });
         forgotPasswordBtn.insertAdjacentElement("beforebegin", optionsBtn);
     }

@@ -1,4 +1,7 @@
 
+let clickEvent = 'touchstart' in window ? 'touchstart' : 'click';
+clickEvent = 'click';
+
 const defaultJSON = {
     theme: 'light',
     hideLoginLogo: false,
@@ -20,7 +23,6 @@ const defaultJSON = {
     colorUnreadEmails: false,
     unreadEmailColor: '#ff0000',
     confirmDisconnect: true,
-    editResults: false,
     autoLogin: false
 }
 
@@ -32,32 +34,29 @@ const nonSavedJSON = {
 const allJSON = JSON.parse(JSON.stringify(defaultJSON));
 allJSON["nonSaved"] = nonSavedJSON;
 
-let link = document.createElement("link");
-link.href = chrome.runtime.getURL("/styles.css");
-link.type = "text/css";
-link.rel = "stylesheet";
-
-document.head.appendChild(link);
-
 const status = document.getElementById("status");
 
 const saveOptions = () => {
     const options = document.querySelectorAll(".option");
-    const json = nonSavedJSON;
+    const json = allJSON;
 
     options.forEach(option => {
-        const value = (option.nodeName.toLowerCase() === "input" && option.type === "checkbox") ? option.checked :
-            (option.nodeName.toLowerCase() === "select" && option.hasAttribute("multiple")) ? Array.from(option.options).filter(o => o.selected).map(o => o.value) :
-            option.value;
+        let value;
+        if (option.nodeName.toLowerCase() === "input" && option.type === "checkbox") {
+            value = option.checked;
+        } else if (option.nodeName.toLowerCase() === "select" && option.hasAttribute("multiple")) {
+            value = Array.from(option.options).filter(o => o.selected).map(o => o.value);
+        } else {
+            value = option.value;
+        }
         if (option.classList.contains('nonSaved')) {
             json["nonSaved"][option.id] = value;
         } else {
             json[option.id] = value;
         }
     });
-    console.log(json);
-
-    chrome.storage.sync.set(
+    
+    browser.storage.sync.set(
         json,
         () => {
             status.textContent = 'Options sauvegardées.';
@@ -67,7 +66,7 @@ const saveOptions = () => {
 };
 
 const restoreOptions = () => {
-    chrome.storage.sync.get(
+    browser.storage.sync.get(
         allJSON,
         loadOptions
     );
@@ -112,7 +111,7 @@ function openTab(evt, tab) {
 }
 
 function copyExport() {
-    chrome.storage.sync.get(
+    browser.storage.sync.get(
         defaultJSON,
         (items) => {
             navigator.clipboard.writeText(btoa(JSON.stringify(items))).then(() => {
@@ -134,7 +133,7 @@ function pasteImport() {
             return false;
         }
 
-        chrome.storage.sync.set(json, () => {
+        browser.storage.sync.set(json, () => {
             loadOptions(json);
             status.textContent = 'Options chargées à partir du presse-papiers.';
             setTimeout(() => status.textContent = '', 3000);
@@ -143,14 +142,14 @@ function pasteImport() {
 }
 
 document.addEventListener("DOMContentLoaded", restoreOptions);
-document.getElementById("save").addEventListener("click", saveOptions);
+document.getElementById("save").addEventListener(clickEvent, saveOptions);
 
-document.getElementById("appearanceButton").addEventListener("click", (e) => openTab(e, 'appearance'));
-document.getElementById("interfaceButton").addEventListener("click", (e) => openTab(e, 'interface'));
-document.getElementById("qolButton").addEventListener("click", (e) => openTab(e, 'qol'));
-document.getElementById("exportButton").addEventListener("click", (e) => openTab(e, 'export'));
+document.getElementById("appearanceButton").addEventListener(clickEvent, (e) => openTab(e, 'appearance'));
+document.getElementById("interfaceButton").addEventListener(clickEvent, (e) => openTab(e, 'interface'));
+document.getElementById("qolButton").addEventListener(clickEvent, (e) => openTab(e, 'qol'));
+document.getElementById("exportButton").addEventListener(clickEvent, (e) => openTab(e, 'export'));
 
-document.getElementById("copyExportButton").addEventListener("click", copyExport);
-document.getElementById("pasteImportButton").addEventListener("click", pasteImport);
+document.getElementById("copyExportButton").addEventListener(clickEvent, copyExport);
+document.getElementById("pasteImportButton").addEventListener(clickEvent, pasteImport);
 
 document.getElementById("appearanceButton").click();

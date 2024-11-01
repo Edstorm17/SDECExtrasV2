@@ -22,41 +22,6 @@ if (onDocumentLoad) {
     }
 }
 
-// Override left menu toggle function
-/*
-if (toggleMenuGauche) {
-    const toggleMenuGaucheOriginal = toggleMenuGauche;
-    toggleMenuGauche = function () {
-        const menu = document.getElementById("menugauche"),
-            shadow = document.getElementById("ombre");
-
-        if (menu.classList.contains("left-sidebar--cache")) {
-            if (menu.classList.contains("left-sidebar--float")) {
-                shadow.style.display = "block";
-                setTimeout(() => {
-                    shadow.style.opacity = "0.5";
-                }, 0);
-            }
-            menu.classList.remove("left-sidebar--cache");
-            ajusterHauteurMenuGauche();
-        } else {
-            if (menu.classList.contains("left-sidebar--float")) {
-                shadow.style.opacity = "0";
-                shadow.addEventListener(transitionEndEventName(), onEndOmbre, false);
-                menu.style.top = "0px";
-            } else {
-                menu.style.top = "85px"
-                ajusterHauteurMenuGauche();
-                menu.classList.add("left-sidebar--cache");
-                menu.classList.remove("left-sidebar--float");
-            }
-        }
-        dispatchResize();
-    }
-}
-*/
-
-
 // Auto login
 document.addEventListener('SCXLogin', function(e) {
     const page = document.querySelector("div.pagecoba");
@@ -86,7 +51,7 @@ document.addEventListener('SCXLogin', function(e) {
 
 // Results Editing
 if (CobaJS) {
-    CobaJS.Register("SDX_EditResults", function () {
+    CobaJS.Register("SCX_EditResults", function () {
         document.dispatchEvent(new CustomEvent('SCXEditResults'));
     });
 }

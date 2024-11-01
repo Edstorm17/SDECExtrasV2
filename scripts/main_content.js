@@ -1,6 +1,6 @@
 const actionJSON = {
     "action": 7, // Custom, see /scripts/injected.js
-    "url": chrome.runtime.getURL("pages/options.html")
+    "url": browser.runtime.getURL("pages/options.html")
 }
 
 const optionsJSON = {
@@ -14,7 +14,7 @@ const HOME_STR = "ACCUEIL";
 const RESULTS_STR = "RÉSULTATS";
 const EMAILS_STR = "COURRIELS"
 
-chrome.storage.sync.get(
+browser.storage.sync.get(
     {
         theme: 'light',
         hideImage: false,
@@ -27,8 +27,7 @@ chrome.storage.sync.get(
         uselessTabsToHide: [],
         games: false,
         colorUnreadEmails: false,
-        unreadEmailColor: '#ff0000',
-        editResults: false
+        unreadEmailColor: '#ff0000'
     },
     initMain
 );
@@ -36,7 +35,6 @@ chrome.storage.sync.get(
 function initMain(options) {
 
     document.addEventListener('SCXDocumentLoad', () => onPageLoad(options));
-    document.addEventListener('SCXEditResults', editResults)
 
     // Add options button to options-link popup
     const optionsAnchor = document.querySelector('.lien-avec-options');
@@ -76,7 +74,7 @@ function initMain(options) {
             flappyAnchor.removeAttribute("data-ripple");
             flappyAnchor.removeAttribute("data-action");
             flappyAnchor.href = "#main-content";
-            flappyAnchor.addEventListener("click", initFlappy);
+            flappyAnchor.addEventListener('click', initFlappy);
 
             parent.appendChild(flappyButton);
         }
@@ -87,7 +85,7 @@ function initMain(options) {
     // Replace the header logo with custom one
     {
         const newLogo = document.createElement("img");
-        newLogo.src = chrome.runtime.getURL("images/header_logo_" + theme + ".png");
+        newLogo.src = browser.runtime.getURL("images/header_logo_" + theme + ".png");
         newLogo.classList.add("headerLogo");
         const headerLogo = document.getElementById("logo2");
         if (headerLogo) {
@@ -196,32 +194,7 @@ function onPageLoad(options) {
             });
         }
 
-    } else if (title === RESULTS_STR) {
-
-        // Add option to edit results
-        if (options.editResults) {
-            const anchor = document.querySelector(".contenant .lien-avec-options");
-            if (anchor) {
-                let data = JSON.parse(decodeURIComponent(anchor.getAttribute("data-option")));
-                data["options"].push({
-                    "n": "editBtn",
-                    "l": "Modifier",
-                    "p": encodeURIComponent(JSON.stringify({
-                        "action": 12,
-                        "id": "SDX_EditResults",
-                        "params": []
-                    })),
-                    "i": "edit"
-                });
-                anchor.setAttribute("data-option", encodeURIComponent(JSON.stringify(data)));
-            }
-        }
-
     }
-}
-
-function editResults() {
-    console.log("editing")
 }
 
 function initFlappy(event) {
@@ -233,7 +206,7 @@ function initFlappy(event) {
     principal.style.height = "100%";
 
     let frame = document.createElement("iframe");
-    frame.src = chrome.runtime.getURL("pages/flappy.html");
+    frame.src = browser.runtime.getURL("pages/flappy.html");
     frame.width = "100%";
     frame.height = "100%";
     frame.style.border = "none";

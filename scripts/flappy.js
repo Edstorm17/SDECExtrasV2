@@ -1,4 +1,6 @@
+// Credits to GeeksForGeeks for the code
 
+const move_speed = 3;
 const move_speed = 3;
 
 const gravity = 0.20;
