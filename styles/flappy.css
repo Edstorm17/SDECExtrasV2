@@ -16,8 +16,8 @@ body {
 }
 
 .bird {
-    height: 100px;
-    width: 160px;
+    height: 8vh;
+    width: 8vw;
     position: fixed;
     top: 40vh;
     left: 30vw;

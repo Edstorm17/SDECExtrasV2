@@ -1,7 +1,6 @@
 // Credits to GeeksForGeeks for the code
 
-const move_speed = 3;
-const move_speed = 3;
+const move_speed = 6;
 
 const gravity = 0.20;
 
@@ -19,7 +18,7 @@ let game_state = 'Start';
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') startHandler(e);
 });
-document.addEventListener('click', startHandler);
+document.addEventListener('pointerdown', startHandler);
 
 function startHandler() {
     if (game_state !== 'Play') {
@@ -88,8 +87,9 @@ function play() {
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowUp' || e.key === ' ') pressHandler(e);
         });
-        document.addEventListener('mousedown', pressHandler);
-        function pressHandler() {
+        document.addEventListener('pointerdown', pressHandler);
+        function pressHandler(e) {
+            e.preventDefault();
             bird_dy = -7.6;
         }
 
