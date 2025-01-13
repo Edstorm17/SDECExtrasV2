@@ -17,7 +17,7 @@ let game_state = 'Start';
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') startHandler(e);
 });
-document.addEventListener('click', startHandler);
+document.addEventListener('pointerdown', startHandler);
 
 function startHandler() {
     if (game_state !== 'Play') {
@@ -86,7 +86,7 @@ function play() {
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowUp' || e.key === ' ') pressHandler(e);
         });
-        document.addEventListener('mousedown', pressHandler);
+        document.addEventListener('pointerdown', pressHandler);
         function pressHandler() {
             bird_dy = -7.6;
         }
