@@ -46,11 +46,11 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "/images/*",
-        "/styles/*",
-        "/themes/*",
-        "/scripts/*",
-        "/pages/*"
+        "images/*",
+        "styles/*",
+        "themes/*",
+        "scripts/*",
+        "pages/*"
       ],
       "matches": ["<all_urls>"]
     }
