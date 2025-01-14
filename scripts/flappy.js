@@ -19,8 +19,7 @@ let pipe_separation = 0;
 
 document.addEventListener('keydown', e => {
     if (e.key === 'Enter') start();
-    else if (e.key === 'ArrowUp' || e.key === ' ') click();
-    e.preventDefault();
+    else if (e.key === 'ArrowUp' || e.key === ' ') click(e);
 });
 document.addEventListener('pointerdown', () => {
     click();
@@ -116,8 +115,9 @@ function loop() {
     requestAnimationFrame(loop);
 }
 
-function click() {
+function click(e) {
     if (game_state !== 'play') return;
+    e.preventDefault();
 
     bird_dy = jump_velocity;
 }
