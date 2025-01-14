@@ -1,4 +1,3 @@
-
 const end_message = 'Appuyez sur entrée pour réessayer';
 
 const speed = 3;
@@ -56,7 +55,7 @@ function movePipes() {
                 bird_box.top + bird_box.height > pipe_box.top
             ) {
                 game_state = 'end';
-                title.innerHTML = 'Appuyez sur entrée pour réessayer';
+                title.innerHTML = end_message;
                 title.style.left = '28vw';
             } else {
                 if (
