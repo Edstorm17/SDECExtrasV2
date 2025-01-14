@@ -18,8 +18,11 @@ let bird_dy = 0;
 let pipe_separation = 0;
 
 document.addEventListener('keydown', e => {
+    console.log("here")
+
     if (e.key === 'Enter') start();
     else if (e.key === 'ArrowUp' || e.key === ' ') click();
+    e.preventDefault();
 });
 document.addEventListener('pointerdown', () => {
     click();
@@ -81,7 +84,6 @@ function applyGravity() {
         return;
     }
     bird.style.top = bird_box.top + bird_dy + 'px';
-    console.log(bird.style.top);
     bird_box = bird.getBoundingClientRect();
 }
 
@@ -116,9 +118,8 @@ function loop() {
     requestAnimationFrame(loop);
 }
 
-function click(e) {
+function click() {
     if (game_state !== 'play') return;
-    e.preventDefault();
 
     bird_dy = jump_velocity;
 }

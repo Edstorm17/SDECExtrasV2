@@ -238,5 +238,5 @@ function initFlappy(event) {
     frame.height = "100%";
     frame.style.border = "none";
 
-    principal.appendChild(frame);
+    principal.appendChild(frame).focus();
 }
