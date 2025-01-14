@@ -18,8 +18,6 @@ let bird_dy = 0;
 let pipe_separation = 0;
 
 document.addEventListener('keydown', e => {
-    console.log("here")
-
     if (e.key === 'Enter') start();
     else if (e.key === 'ArrowUp' || e.key === ' ') click();
     e.preventDefault();
