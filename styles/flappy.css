@@ -24,7 +24,7 @@ body {
     z-index: 100;
 }
 
-.pipe_sprite {
+.pipe {
     position: fixed;
     top: 40vh;
     left: 100vw;
@@ -33,12 +33,13 @@ body {
     background-color: green;
 }
 
-.message {
+.title {
     position: fixed;
     z-index: 10;
     height: 10vh;
     font-size: 10vh;
     font-weight: 100;
+    font-family: "Lucida Console", sans-serif;
     color: black;
     top: 12vh;
     left: 20vw;
@@ -51,11 +52,8 @@ body {
     height: 10vh;
     font-size: 10vh;
     font-weight: 100;
-    color: goldenrod;
+    font-family: "Lucida Console", sans-serif;
+    color: gold;
     top: 0;
     left: 0;
-}
-
-.score_val {
-    color: gold;
 }
