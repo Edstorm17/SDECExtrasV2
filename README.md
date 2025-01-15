@@ -29,4 +29,10 @@ Et bien plus de fonctionnalités en cours de développement!
 De plus, les options sont exportables et importables, il est donc possible de partager vos options avec vos amis ou à un autre appareil.
 
 ## Support
-Pour obtenir du support, veuillez me contacter par courriel avec l'adresse **edstorm17@gmail.com**
+Pour obtenir du support, veuillez me contacter par courriel avec l'adresse **info.storm17@gmail.com**
+
+## Politique de confidentialité
+
+SDEC Extras V2 ne collecte **JAMAIS** de données.
+Tous les paramètres sont enregistrés *localement*, c'est-à-dire sur l'appareil où l'application a été installée.
+Également, aucunes données ne sont partagées avec d'autres entités.
