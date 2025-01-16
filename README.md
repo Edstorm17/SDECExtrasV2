@@ -30,7 +30,7 @@ De plus, les options sont exportables et importables, il est donc possible de pa
 
 ## Politique de confidentialité
 
-SDEC Extras V2 ne récolte **JAMAIS** de données.
+SC Extras V2 ne récolte **JAMAIS** de données.
 Tous les paramètres sont enregistrés *localement*, c'est-à-dire sur l'appareil où l'application a été installée.
 Également, aucunes données ne sont partagées avec d'autres entités.
 
