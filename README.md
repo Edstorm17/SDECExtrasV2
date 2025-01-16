@@ -1,4 +1,4 @@
-# SDEC Extras V2
+# SC Extras V2
 
 ## Fonctionnalités
 La version 2 vient avec une multitude de nouvelles fonctionnalités et paramètres, tous pour faciliter et améliorer votre expérience sur le Portail.
