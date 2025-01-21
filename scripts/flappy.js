@@ -21,8 +21,8 @@ document.addEventListener('keydown', e => {
     if (e.key === 'Enter') start();
     else if (e.key === 'ArrowUp' || e.key === ' ') click(e);
 });
-document.addEventListener('pointerdown', () => {
-    click();
+document.addEventListener('pointerdown', e => {
+    click(e);
     start();
 });
 
