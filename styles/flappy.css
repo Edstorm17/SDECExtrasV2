@@ -17,10 +17,10 @@ body {
 
 .bird {
     height: 8vh;
-    width: 8vw;
+    width: 8vh;
     position: fixed;
     top: 40vh;
-    left: 30vw;
+    left: 45vh;
     z-index: 100;
 }
 
@@ -29,8 +29,18 @@ body {
     top: 40vh;
     left: 100vw;
     height: 70vh;
-    width: 6vw;
+    width: 9vh;
     background-color: green;
+}
+
+.orb {
+    position: fixed;
+    top: 40vh;
+    left: 100vw;
+    height: 8vh;
+    width: 8vh;
+    border-radius: 4vh;
+    background-color: yellow;
 }
 
 .title {
@@ -56,4 +66,56 @@ body {
     color: gold;
     top: 0;
     left: 0;
+}
+
+.mainMenu {
+    position: fixed;
+    left: 25vw;
+    top: 25vh;
+    margin: auto;
+    width: 50%;
+    height: 50%;
+    padding: 10px;
+}
+
+.mainMenu button {
+    float: left;
+    width: 100%;
+    height: 10vh;
+    margin-top: 10%;
+    background-color: forestgreen;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 32px;
+    border-radius: 15px;
+}
+
+.multiplayerMenu {
+    position: fixed;
+    left: 25vw;
+    top: 5vh;
+    margin: auto;
+    width: 50%;
+    height: 90%;
+    padding: 10px;
+}
+
+.multiplayerMenu * {
+    float: left;
+    width: 100%;
+    height: 10%;
+    margin-bottom: 5%;
+    background-color: cornflowerblue;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 32px;
+    border-radius: 15px;
 }

@@ -11,7 +11,7 @@
     "128": "images/icon-128.png"
   },
   "action": {
-    "default_popup": "pages/hello.html"
+    "default_popup": "pages/popup.html"
   },
   "options_ui": {
     "page": "pages/options.html",
