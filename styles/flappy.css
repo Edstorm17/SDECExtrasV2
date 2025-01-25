@@ -24,6 +24,21 @@ body {
     z-index: 100;
 }
 
+.bird img {
+    width: 100%;
+    height: 100%;
+}
+
+.username {
+    position: absolute;
+    top: -4vh;
+    color: red;
+    font-size: 20px;
+    font-weight: bold;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 .pipe {
     position: fixed;
     top: 40vh;
@@ -102,14 +117,32 @@ body {
     width: 50%;
     height: 90%;
     padding: 10px;
+    overflow: scroll;
+    overflow-x: hidden;
 }
 
-.multiplayerMenu * {
+.multiplayerMenu button {
     float: left;
     width: 100%;
     height: 10%;
     margin-bottom: 5%;
     background-color: cornflowerblue;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 32px;
+    border-radius: 15px;
+}
+
+.currentGames div {
+    float: left;
+    width: 100%;
+    height: 10%;
+    margin-bottom: 5%;
+    background-color: orangered;
     border: none;
     color: white;
     padding: 15px 32px;

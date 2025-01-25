@@ -4,6 +4,8 @@ const singleplayerButton = document.getElementById('singleplayer');
 const multiplayerButton = document.getElementById('multiplayer');
 const createGameButton = document.getElementById('createGame');
 
+const multiplayerMenu = document.querySelector('.multiplayerMenu');
+
 const bird_speed = 3;
 const gravity = 0.2;
 const jump_velocity = -7.6;
@@ -15,6 +17,10 @@ const score_value = document.querySelector(".score_value");
 const title = document.querySelector(".title");
 const score_title = document.querySelector('.score_title');
 
+const background_box = document.querySelector(".background").getBoundingClientRect();
+
+let socket;
+
 function singleplayer() {
     hideButtons();
 
@@ -23,7 +29,6 @@ function singleplayer() {
 
     let bird = spawnBird();
     let bird_box = bird.getBoundingClientRect();
-    let background_box = document.querySelector(".background").getBoundingClientRect();
 
     title.innerHTML = 'Touchez ou appuyez sur entrée pour débuter';
 
@@ -159,34 +164,98 @@ function singleplayer() {
     }
 }
 
-function multiplayer() {
+function multiplayer(players) {
     hideButtons();
-
-    const socket = io('http://localhost:3000');
 
     let bird = spawnBird(socket.id);
     let bird_box = bird.getBoundingClientRect();
 
     let game_state = 'start';
     let bird_dy = 0;
+    let dead = false;
 
     let bird_map = new Map();
 
     document.addEventListener('keydown', e => {
-        // if (e.key === 'Enter') start();
+        if (e.key === 'Enter') startClick();
         if (e.key === 'ArrowUp' || e.key === ' ') click(e);
     });
     document.addEventListener('pointerdown', e => {
         click(e);
-        // start();
+        startClick();
     });
+
+    for (const [key, value] of Object.entries(players)) {
+        if (key === socket.id) continue;
+        bird_map.set(key, spawnBird(key, value.name));
+    }
+
+    function startClick() {
+        if (dead) resetBird();
+        if (game_state === 'play') return;
+        socket.emit('game-start');
+    }
+
+    function start() {
+        document.querySelectorAll('.element').forEach((e) => e.remove());
+        resetBird();
+        bird_map.forEach((v, k) => {
+            v.style.top = '40vh';
+            v.dy = 0;
+            v.dead = false;
+        });
+
+        requestAnimationFrame(loop);
+    }
+
+    function resetBird() {
+        dead = false;
+        bird.style.top = '40vh';
+        title.innerHTML = '';
+        score_title.innerHTML = 'Score : ';
+        score_value.innerHTML = '0';
+        bird_box = bird.getBoundingClientRect();
+        bird_dy = 0;
+        speed_multiplier = 1;
+        socket.emit('reset-bird');
+    }
+
+    function applyGravity() {
+        if (!dead) {
+            bird_dy += gravity;
+
+            if (bird_box.top <= 0 || bird_box.bottom >= background_box.bottom) {
+                die();
+                return;
+            }
+            bird.style.top = bird_box.top + bird_dy + 'px';
+        }
+
+        for (const [key, value] of bird_map) {
+            if (!value.dead) {
+                value.dy += gravity;
+                value.style.top = value.getBoundingClientRect().top + value.dy + 'px';
+            }
+        }
+
+        bird_box = bird.getBoundingClientRect();
+    }
 
     function loop() {
         if (game_state !== 'play') return;
+        console.log('frame');
 
-
+        applyGravity();
 
         requestAnimationFrame(loop);
+    }
+
+    function die() {
+        dead = true;
+        title.innerHTML = end_message;
+        title.style.left = '28vw';
+
+        socket.emit('set-dead', true);
     }
 
     function click(e) {
@@ -197,36 +266,120 @@ function multiplayer() {
 
     socket.on('player-jump', (data) => {
         if (!bird_map.has(data.id)) return;
+        if (data.id === socket.id) return;
         bird_map.get(data.id).dy = data.strength;
         console.log(`Player ${data.id} jumped:`, data)
     });
-    socket.on('spawn-player', (data) => {
-        bird_map.set(data.id, spawnBird(data.id));
+    socket.on('player-joined', (data) => {
+        if (data.id === socket.id) return;
+        bird_map.set(data.id, spawnBird(data.id, data.name));
         console.log(`Player ${data.id} spawned:`, data)
     })
+    socket.on('player-disconnected', (data) => {
+        if (!bird_map.has(data.id)) return;
+        if (data.id === socket.id) return;
+        bird_map.delete(data.id);
+        document.getElementById(data.id).remove();
+        console.log(`Player ${data.id} disconnected:`, data);
+    });
+    socket.on('update-game-state', (state) => {
+        game_state = state;
+        if (game_state === 'play') start();
+        console.log('Game state:', state);
+    });
+    socket.on('set-dead', (data) => {
+        if (!bird_map.has(data.id)) return;
+        if (data.id === socket.id) return;
+        bird_map.get(data.id).dead = data.dead;
+    });
+    socket.on('reset-bird', (playerId) => {
+       if (playerId === socket.id) return;
+       let bird = bird_map.get(playerId);
+       bird.dead = false;
+       bird.style.top = '40vh';
+       bird.dy = 0;
+    });
 
 }
 
-function setupMultiplayer() {
+function initMultiplayerMenu() {
     hideButtons();
-    document.querySelector('.multiplayerMenu').style.display = 'block';
+    multiplayerMenu.style.display = 'block';
+    socket = io('http://localhost:3000')
+
+    let currentGamesList = multiplayerMenu.querySelector('.currentGames');
+    currentGamesList.addEventListener('click', (e) => {
+       if (e.target.classList.contains('instance')) {
+           joinGame(e.target.id)
+       }
+    });
+
+    socket.on('instances-list', (data) => {
+        currentGamesList.innerHTML = '';
+        for (const [key, value] of Object.entries(data)) {
+            console.log(key, value);
+            let game = document.createElement('div');
+            game.id = key;
+            game.classList.add('instance');
+            game.innerText = value.name;
+            currentGamesList.appendChild(game);
+        }
+    });
+
+    socket.emit('request-instances');
+    let refreshId = setInterval(() => {
+        socket.emit('request-instances');
+    }, 5000);
+
+    function createGame() {
+        let playerName = prompt("Entrez un nom pour votre personnage", "Bob");
+        if (!playerName) return;
+        let gameName = prompt("Entrez un nom pour la salle", "Salle");
+        if (!gameName) return;
+        socket.emit('create-instance', { instanceName: gameName, playerName: playerName });
+
+        socket.on('instance-created', (data) => {
+            clearInterval(refreshId);
+            multiplayer({});
+        });
+    }
+
+    function joinGame(id) {
+        let playerName = prompt("Entrez un nom pour votre personnage", "Bob");
+        if (!playerName) return;
+        socket.emit('join-instance', { instanceId: id, playerName: playerName });
+
+        socket.on('instance-joined', (data) => {
+           clearInterval(refreshId);
+           multiplayer(data.currentPlayers);
+        });
+    }
+
+    createGameButton.addEventListener('click', createGame);
 }
 
 function hideButtons() {
     document.querySelector('.mainMenu').style.display = 'none';
-    document.querySelector('.multiplayerMenu').style.display = 'none';
+    multiplayerMenu.style.display = 'none';
 }
 
-function spawnBird(id) {
-    let bird = document.createElement('img')
-    bird.className = 'bird';
+function spawnBird(id, username) {
+    let container = document.createElement('div');
+    let bird = document.createElement('img');
     bird.src = '/images/icon-128.png';
     bird.alt = 'Bird';
-    if (id) bird.id = id;
-    document.body.appendChild(bird);
-    return bird;
+    container.className = 'bird';
+    if (id) container.id = id;
+    if (username) {
+        let name = document.createElement('div');
+        name.className = 'username';
+        name.innerText = username;
+        container.appendChild(name);
+    }
+    container.appendChild(bird);
+    document.body.appendChild(container);
+    return container;
 }
 
 singleplayerButton.addEventListener('click', singleplayer);
-multiplayerButton.addEventListener('click', setupMultiplayer);
-createGameButton.addEventListener('click', multiplayer);
+multiplayerButton.addEventListener('click', initMultiplayerMenu);
